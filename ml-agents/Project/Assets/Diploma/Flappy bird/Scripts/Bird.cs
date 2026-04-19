@@ -3,6 +3,7 @@ using UnityEngine;
 public class Bird : MonoBehaviour
 {
     private GameManager _gameManager;
+    [SerializeField] private bool allowMouseInput = false;
 
     public float jumpForce = 5f;
     private Rigidbody2D rb;
@@ -24,7 +25,7 @@ public class Bird : MonoBehaviour
     {
         if(_gameManager.IsGameOver) return;
 
-        if (Input.GetMouseButtonDown(0))
+        if (allowMouseInput && Input.GetMouseButtonDown(0))
         {
             Jump();
         }

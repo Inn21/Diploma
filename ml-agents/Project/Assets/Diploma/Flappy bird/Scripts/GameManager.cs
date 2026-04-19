@@ -1,10 +1,7 @@
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +13,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent onGameOver;
 
     public bool IsGameOver = false;
+    [SerializeField] private bool autoRestartOnGameOver = false;
 
 
     [Header("Pipe spawner")]
@@ -92,11 +90,14 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         if(IsGameOver) return;
+        IsGameOver = true;
 
         onGameOver?.Invoke();
 
-        // IsGameOver = true;
-        RestartGame();
+        if (autoRestartOnGameOver)
+        {
+            RestartGame();
+        }
     }
 
     public void RestartGame()

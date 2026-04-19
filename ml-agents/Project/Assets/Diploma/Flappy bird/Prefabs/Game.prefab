@@ -55,6 +55,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   IsGameOver: 0
+  autoRestartOnGameOver: 0
   pipePrefab: {fileID: 1515270718461994532, guid: 237cddcd28c1ab849a775da635403673,
     type: 3}
   spawnRate: 3
@@ -118,6 +119,11 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   gameManager: {fileID: 4490952389867373034}
+  deathPenalty: -1
+  scoreReward: 1
+  noTapPenalty: -0.01
+  survivalReward: 0.0005
+  allowKeyboardHeuristic: 0
 --- !u!114 &3781126970092771526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,14 +167,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282f342c2ab144bf38be65d4d0c4e07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 2852425131443070960}
+  m_Camera: {fileID: 904077861171155154}
   m_SensorName: CameraSensor
   m_Width: 27
   m_Height: 48
   m_Grayscale: 1
   m_ObservationType: 0
   m_RuntimeCameraEnable: 1
-  m_ObservationStacks: 1
+  m_ObservationStacks: 2
   m_Compression: 1
 --- !u!114 &240577055244694381
 MonoBehaviour:
@@ -182,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 3
+  DecisionPeriod: 2
   DecisionStep: 0
   TakeActionsBetweenDecisions: 1
 --- !u!1 &2114115050228146783
@@ -224,7 +230,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2114115050228146783}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
@@ -785,6 +791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72731634acdea2b4ea23efd106e75428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowMouseInput: 0
   jumpForce: 3
 --- !u!50 &7480703718566314339
 Rigidbody2D:
