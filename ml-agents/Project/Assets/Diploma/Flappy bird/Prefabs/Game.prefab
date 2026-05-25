@@ -121,7 +121,7 @@ MonoBehaviour:
   gameManager: {fileID: 4490952389867373034}
   deathPenalty: -1
   scoreReward: 1
-  noTapPenalty: -0.01
+  noTapPenalty: -0.005
   survivalReward: 0.0005
   flapPenalty: -0.001
   allowKeyboardHeuristic: 0
