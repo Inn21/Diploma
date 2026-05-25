@@ -6,9 +6,10 @@ public class FlappyModel : Agent
 {
     [SerializeField] private GameManager gameManager;
     [SerializeField] private float deathPenalty = -1f;
-    [SerializeField] private float scoreReward = 1f;
-    [SerializeField] private float noTapPenalty = -0.01f;
-    [SerializeField] private float survivalReward = 0.0005f;
+    [SerializeField] private float scoreReward = 0.5f;
+    [SerializeField] private float noTapPenalty = -0.005f;
+    [SerializeField] private float survivalReward = 0.0025f;
+    [SerializeField] private float flapPenalty = -0.001f;
     [SerializeField] private bool allowKeyboardHeuristic = false;
 
     public override void Initialize()
@@ -43,6 +44,7 @@ public class FlappyModel : Agent
         if (actions.DiscreteActions[0] == 1)
         {
             gameManager.Tap();
+            AddReward(flapPenalty);
         }
 
         AddReward(gameManager.isFirstTap ? noTapPenalty : survivalReward);
