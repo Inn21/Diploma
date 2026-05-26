@@ -74,12 +74,14 @@ public class GameManager : MonoBehaviour
         float minDistance = float.MaxValue;
         Transform nearestPipe = null;
 
-        var currentPipes = pipes;
-
-        foreach (Pipe pipe in currentPipes)
+        foreach (Pipe pipe in pipes)
         {
-            var distance = Vector2.Distance(actorTransform.position, pipe.transform.position);
-            if (distance <= minDistance)
+            if(pipe == null) continue;
+
+            if (pipe.transform.position.x < actorTransform.position.x) continue;
+
+            float distance = Vector2.Distance(actorTransform.position, pipe.transform.position);
+            if (distance < minDistance)
             {
                 minDistance = distance;
                 nearestPipe = pipe.transform;

@@ -39,11 +39,19 @@ public class FlappyModelVector : Agent
         sensor.AddObservation(rb.linearVelocity.y / 20f);
 
         Transform pipe = gameManager.FindNearestPipe(transform);
-        float nearestX = Vector2.Distance(transform.position,pipe.position), nearestGapY = pipe.transform.position.y;
 
-        sensor.AddObservation(nearestX / 20f);
-
-        sensor.AddObservation((bird.transform.position.y - nearestGapY) / 10f);
+        if (pipe != null)
+        {
+            float nearestX = Vector2.Distance(bird.transform.position, pipe.position);
+            float nearestGapY = pipe.transform.position.y;
+            sensor.AddObservation(nearestX / 20f);
+            sensor.AddObservation((bird.transform.position.y - nearestGapY) / 10f);
+        }
+        else
+        {
+            sensor.AddObservation(1f);
+            sensor.AddObservation(0f);
+        }
     }
 
     public void Lose()
