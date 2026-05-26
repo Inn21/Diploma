@@ -1,3 +1,4 @@
+using System;
 using Unity.AppUI.Redux;
 using UnityEngine;
 using Action = System.Action;
@@ -25,6 +26,7 @@ public class Pipe : MonoBehaviour
         if (transform.localPosition.x < leftEdge)
         {
             AddScore = null;
+            _gameManager.RemovePipe(this);
             Destroy(gameObject);
         }
     }

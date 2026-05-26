@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public float maxHeight = 1f;
 
     private List<Pipe> pipes = new List<Pipe>();
+    public List<Pipe> Pipes => pipes;
 
     private float timer;
 
@@ -61,6 +62,31 @@ public class GameManager : MonoBehaviour
         pipe.SetGameManager(this);
 
         pipes.Add(pipe);
+    }
+
+    public void RemovePipe(Pipe pipe)
+    {
+        pipes.Remove(pipe);
+    }
+
+    public Transform FindNearestPipe(Transform actorTransform)
+    {
+        float minDistance = float.MaxValue;
+        Transform nearestPipe = null;
+
+        var currentPipes = pipes;
+
+        foreach (Pipe pipe in currentPipes)
+        {
+            var distance = Vector2.Distance(actorTransform.position, pipe.transform.position);
+            if (distance <= minDistance)
+            {
+                minDistance = distance;
+                nearestPipe = pipe.transform;
+            }
+        }
+
+        return nearestPipe;
     }
 
     private void ResetPipeSpawner()
