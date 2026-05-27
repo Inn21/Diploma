@@ -78,9 +78,9 @@ public class GameManager : MonoBehaviour
         {
             if(pipe == null) continue;
 
-            if (pipe.transform.position.x < actorTransform.position.x) continue;
+            if (pipe.transform.localPosition.x < 0) continue;
 
-            float distance = Vector2.Distance(actorTransform.position, pipe.transform.position);
+            float distance = pipe.transform.localPosition.x;
             if (distance < minDistance)
             {
                 minDistance = distance;

@@ -33,19 +33,27 @@ public class FlappyModelVector : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(bird.transform.position.y / 10f);
+        var normalizedPositionY = Mathf.InverseLerp(-2.8f, 2.8f, bird.transform.localPosition.y);
+        sensor.AddObservation(normalizedPositionY);
 
         Rigidbody2D rb = bird.GetComponent<Rigidbody2D>();
-        sensor.AddObservation(rb.linearVelocity.y / 20f);
+
+        var normalizedVelocityY = Mathf.InverseLerp(-20, 20, rb.linearVelocity.y);
+        sensor.AddObservation(normalizedVelocityY);
 
         Transform pipe = gameManager.FindNearestPipe(transform);
 
         if (pipe != null)
         {
-            float nearestX = Vector2.Distance(bird.transform.position, pipe.position);
-            float nearestGapY = pipe.transform.position.y;
-            sensor.AddObservation(nearestX / 20f);
-            sensor.AddObservation((bird.transform.position.y - nearestGapY) / 10f);
+            var pipeX = pipe.localPosition.x;
+            var pipeY = pipe.localPosition.y;
+
+            var normalizedPipeX = Mathf.InverseLerp(0, 2, pipeX);
+            sensor.AddObservation(normalizedPipeX);
+
+            var distanceToPipe = bird.transform.localPosition.y - pipeY;
+            var normalizedDistanceToPipe = Mathf.InverseLerp(-2.8f, 2.8f, distanceToPipe);
+            sensor.AddObservation(normalizedDistanceToPipe);
         }
         else
         {
