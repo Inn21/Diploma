@@ -17,11 +17,11 @@ public class Pipe : MonoBehaviour
         _gameManager = gameManager;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_gameManager.IsGameOver) return;
 
-        transform.Translate(Vector3.left * speed * Time.deltaTime);
+        transform.Translate(Vector3.left * speed * Time.fixedDeltaTime);
 
         if (transform.localPosition.x < leftEdge)
         {
