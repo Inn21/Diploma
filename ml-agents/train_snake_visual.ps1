@@ -19,7 +19,7 @@ foreach ($s in $seeds) {
     Get-Process SnakeTrainigEnv -ErrorAction SilentlyContinue | Stop-Process -Force
     Start-Sleep -Seconds 5
 
-    mlagents-learn $config --run-id=snake_visual_s$s --seed=$s --env=$env --base-port=$port --time-scale=$timeScale --force
+    mlagents-learn $config --run-id=snake_visual_36x36_s$s --seed=$s --env=$env --base-port=$port --time-scale=$timeScale --force
 
     $i++
 }
