@@ -119,6 +119,67 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &33112971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 33112973}
+  - component: {fileID: 33112972}
+  m_Layer: 0
+  m_Name: Logger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &33112972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33112971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c29511250517142a910a93d20288b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 1826325660038053022}
+  gameManager: {fileID: 1826325660038053021}
+  models:
+  - name: FlapyBird_vector_s8
+    model: {fileID: 5022602860645237092, guid: 602aa56006a1e77409713f1a03906dfc, type: 3}
+  - name: FlapyBird_vector_s11
+    model: {fileID: 5022602860645237092, guid: de39278c5ec83e8439e1a51649fc3b78, type: 3}
+  - name: FlapyBird_vector_s27
+    model: {fileID: 5022602860645237092, guid: fbef1732081cd784e90c98b39cd4f2dd, type: 3}
+  behaviorName: FlappyBird
+  inferenceDevice: 0
+  episodesPerModel: 100
+  baseSeed: 1234
+  maxStepsPerEpisode: 10000
+  timeScale: 50
+  quitOnFinish: 1
+  outputDirAbsolute: 
+--- !u!4 &33112973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33112971}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -33.409084, y: -4.663736, z: -9.42993}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1574297252
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,6 +240,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game (Vector)
       objectReference: {fileID: 0}
+    - target: {fileID: 3781126970092771526, guid: 611b0c24ee394984d939e9418cd1b994,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036760501310754940, guid: 611b0c24ee394984d939e9418cd1b994,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8033123752628681042, guid: 611b0c24ee394984d939e9418cd1b994,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -234,9 +305,34 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 611b0c24ee394984d939e9418cd1b994, type: 3}
+--- !u!114 &1826325660038053021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4490952389867373034, guid: 611b0c24ee394984d939e9418cd1b994,
+    type: 3}
+  m_PrefabInstance: {fileID: 1826325660038053020}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43ac345f984da1248be0aa1c7d135aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1826325660038053022 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7036760501310754940, guid: 611b0c24ee394984d939e9418cd1b994,
+    type: 3}
+  m_PrefabInstance: {fileID: 1826325660038053020}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f752b838c949a392604bb9009e1dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1826325660038053020}
   - {fileID: 1574297254}
+  - {fileID: 33112973}

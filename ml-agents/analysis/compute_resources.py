@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import json
 import os
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -25,6 +26,24 @@ GROUPS: dict[str, list[tuple[str, str, str]]] = {
         ("vector_s27", "FlappyBird", "FlappyBird"),
     ],
 }
+
+SNAKE_GROUPS: dict[str, list[tuple[str, str, str]]] = {
+    "Snake Vector PPO": [
+        ("snake_vector_s8",  "SnakeVector", "SnakeVector"),
+        ("snake_vector_s11", "SnakeVector", "SnakeVector"),
+        ("snake_vector_s27", "SnakeVector", "SnakeVector"),
+    ],
+    "Snake Visual PPO": [
+        ("snake_visual_s8",  "SnakeVisual", "SnakeVisual"),
+        ("snake_visual_s11", "SnakeVisual", "SnakeVisual"),
+        ("snake_visual_s27", "SnakeVisual", "SnakeVisual"),
+    ],
+}
+
+DATASET = sys.argv[1] if len(sys.argv) > 1 else "flappy"
+PREFIX = "snake_" if DATASET == "snake" else ""
+if DATASET == "snake":
+    GROUPS = SNAKE_GROUPS
 
 
 def last_step(behavior_dir: Path) -> float:
@@ -88,7 +107,7 @@ def main() -> None:
         }
         rows.append(agg)
 
-    csv_path = OUT / "compute_resources.csv"
+    csv_path = OUT / f"{PREFIX}compute_resources.csv"
     with csv_path.open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
         w.writeheader()

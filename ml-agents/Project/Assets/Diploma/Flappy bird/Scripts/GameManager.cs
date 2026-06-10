@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public int score;
 
+    public int LastScore { get; private set; }
+
     public UnityEvent onAddScore;
     public UnityEvent onGameOver;
 
@@ -32,9 +34,13 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public bool isFirstTap = true;
 
-    private void Start()
+    private void Awake()
     {
         bird.SetManager(this);
+    }
+
+    private void Start()
+    {
         StartGame();
     }
 
@@ -119,6 +125,8 @@ public class GameManager : MonoBehaviour
     {
         if(IsGameOver) return;
         IsGameOver = true;
+
+        LastScore = score;
 
         onGameOver?.Invoke();
 

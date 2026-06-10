@@ -9,6 +9,8 @@ public class SnakeGameManager : MonoBehaviour
 
     public int score;
 
+    public int LastScore { get; private set; }
+
     public UnityEvent onAddScore;
     public UnityEvent onGameOver;
 
@@ -30,9 +32,6 @@ public class SnakeGameManager : MonoBehaviour
 
     private void Awake()
     {
-        // Wire references in Awake so the snake has its manager before the first
-        // Academy step (which can run in FixedUpdate before Start), otherwise
-        // ResetState() during OnEpisodeBegin would hit a null manager.
         snake.SetManager(this);
         if (food != null) food.SetGameManager(this);
     }
@@ -149,6 +148,8 @@ public class SnakeGameManager : MonoBehaviour
     {
         if (IsGameOver) return;
         IsGameOver = true;
+
+        LastScore = score;
 
         onGameOver?.Invoke();
 

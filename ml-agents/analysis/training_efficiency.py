@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -31,6 +32,24 @@ GROUPS: dict[str, list[tuple[str, str]]] = {
         ("vector_s27", "FlappyBird"),
     ],
 }
+
+SNAKE_GROUPS: dict[str, list[tuple[str, str]]] = {
+    "Snake Vector PPO": [
+        ("snake_vector_s8",  "SnakeVector"),
+        ("snake_vector_s11", "SnakeVector"),
+        ("snake_vector_s27", "SnakeVector"),
+    ],
+    "Snake Visual PPO": [
+        ("snake_visual_s8",  "SnakeVisual"),
+        ("snake_visual_s11", "SnakeVisual"),
+        ("snake_visual_s27", "SnakeVisual"),
+    ],
+}
+
+DATASET = sys.argv[1] if len(sys.argv) > 1 else "flappy"
+PREFIX = "snake_" if DATASET == "snake" else ""
+if DATASET == "snake":
+    GROUPS = SNAKE_GROUPS
 
 
 def load_reward(behavior_dir: Path) -> tuple[np.ndarray, np.ndarray]:
@@ -143,11 +162,11 @@ def main() -> None:
     ax.grid(alpha=0.3)
     fig.tight_layout()
 
-    plot_path = OUT / "learning_curves.png"
+    plot_path = OUT / f"{PREFIX}learning_curves.png"
     fig.savefig(plot_path, dpi=160)
     print(f"\nsaved {plot_path}")
 
-    csv_path = OUT / "training_efficiency.csv"
+    csv_path = OUT / f"{PREFIX}training_efficiency.csv"
     with csv_path.open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
         w.writeheader()

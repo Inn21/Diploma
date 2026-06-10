@@ -3,7 +3,7 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
-public class SnakeModelVector : Agent
+public class SnakeModelVector : Agent, IEpisodeStats
 {
     [SerializeField] private Snake snake;
     [SerializeField] private SnakeGameManager gameManager;
@@ -19,6 +19,9 @@ public class SnakeModelVector : Agent
     [SerializeField] private bool allowKeyboardHeuristic = false;
 
     private int _stepsSinceFood;
+
+    public float LastReturn { get; private set; }
+    public int LastSteps { get; private set; }
 
     public override void Initialize()
     {
@@ -41,11 +44,6 @@ public class SnakeModelVector : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        // Fail safe: if references are gone (scene tearing down on disconnect, or
-        // misconfigured) write a blank, correctly-sized observation instead of
-        // throwing a NullReferenceException every frame. A thrown exception here is
-        // logged with a full stack trace each step and can bloat the Unity Player
-        // log to tens of GB. Keep this count in sync with the 10 values below.
         if (snake == null || gameManager == null)
         {
             for (int i = 0; i < 10; i++) sensor.AddObservation(0f);
@@ -118,6 +116,8 @@ public class SnakeModelVector : Agent
     public void Lose()
     {
         AddReward(deathPenalty);
+        LastReturn = GetCumulativeReward();
+        LastSteps = StepCount;
         EndEpisode();
     }
 

@@ -61,10 +61,11 @@ public class ModelEvaluator : MonoBehaviour
             return;
         }
 
-        m_BehaviorParams.BehaviorType = BehaviorType.InferenceOnly;
         m_BehaviorParams.DeterministicInference = true;
 
         Time.timeScale = timeScale;
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = -1;
 
         if (string.IsNullOrEmpty(outputDirAbsolute))
         {
@@ -89,7 +90,7 @@ public class ModelEvaluator : MonoBehaviour
     {
         if (m_Finished) return;
         if (agent.StepCount >= maxStepsPerEpisode)
-            agent.EndEpisode();
+            gameManager.GameOver();
     }
 
     private void OnEpisodeEnded()
@@ -97,9 +98,10 @@ public class ModelEvaluator : MonoBehaviour
         if (m_Finished || m_ModelIdx < 0) return;
 
         var modelName = models[m_ModelIdx].name;
-        var ret = agent.GetCumulativeReward();
-        var score = gameManager.score;
-        var steps = agent.StepCount;
+        var stats = agent as IEpisodeStats;
+        var ret = stats != null ? stats.LastReturn : agent.GetCumulativeReward();
+        var score = gameManager.LastScore;
+        var steps = stats != null ? stats.LastSteps : agent.StepCount;
 
         m_Csv.Append(modelName).Append(',')
              .Append(m_EpisodeIdx).Append(',')
@@ -157,6 +159,7 @@ public class ModelEvaluator : MonoBehaviour
 
         m_BehaviorParams.DeterministicInference = true;
         agent.SetModel(behaviorName, entry.model, inferenceDevice);
+        m_BehaviorParams.BehaviorType = BehaviorType.InferenceOnly;
 
         m_EpisodeIdx = 0;
         m_CurrentSeed = baseSeed + m_ModelIdx * episodesPerModel;

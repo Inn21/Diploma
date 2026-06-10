@@ -15,7 +15,6 @@ public class Snake : MonoBehaviour
     [SerializeField] private bool allowKeyboardInput = false;
     [SerializeField] private float moveInterval = 0.15f;
 
-    // _cells[0] is the head (this transform); _cells[i>0] map to _segments[i-1].
     private readonly List<Vector2Int> _cells = new List<Vector2Int>();
     private readonly List<Transform> _segments = new List<Transform>();
 
@@ -114,7 +113,7 @@ public class Snake : MonoBehaviour
         int len = Mathf.Max(1, initialLength);
         for (int i = 0; i < len; i++)
         {
-            Vector2Int cell = start - _direction * i; // body trails behind the head
+            Vector2Int cell = start - _direction * i;
             cell.x = Mathf.Clamp(cell.x, 0, _manager.gridWidth - 1);
             cell.y = Mathf.Clamp(cell.y, 0, _manager.gridHeight - 1);
             _cells.Add(cell);

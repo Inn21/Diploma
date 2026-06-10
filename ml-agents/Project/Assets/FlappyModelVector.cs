@@ -3,7 +3,7 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
-public class FlappyModelVector : Agent
+public class FlappyModelVector : Agent, IEpisodeStats
 {
     [SerializeField] private Bird bird;
     [SerializeField] private GameManager gameManager;
@@ -13,6 +13,9 @@ public class FlappyModelVector : Agent
     [SerializeField] private float survivalReward = 0.0025f;
     [SerializeField] private float flapPenalty = -0.001f;
     [SerializeField] private bool allowKeyboardHeuristic = false;
+
+    public float LastReturn { get; private set; }
+    public int LastSteps { get; private set; }
 
     public override void Initialize()
     {
@@ -66,6 +69,8 @@ public class FlappyModelVector : Agent
     public void Lose()
     {
         AddReward(deathPenalty);
+        LastReturn = GetCumulativeReward();
+        LastSteps = StepCount;
         EndEpisode();
     }
     public void AddScore()

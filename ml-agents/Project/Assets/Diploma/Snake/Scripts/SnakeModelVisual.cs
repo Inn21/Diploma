@@ -3,7 +3,7 @@ using Unity.MLAgents.Actuators;
 using UnityEngine;
 
 
-public class SnakeModelVisual : Agent
+public class SnakeModelVisual : Agent, IEpisodeStats
 {
     [SerializeField] private Snake snake;
     [SerializeField] private SnakeGameManager gameManager;
@@ -19,6 +19,9 @@ public class SnakeModelVisual : Agent
     [SerializeField] private bool allowKeyboardHeuristic = false;
 
     private int _stepsSinceFood;
+
+    public float LastReturn { get; private set; }
+    public int LastSteps { get; private set; }
 
     public override void Initialize()
     {
@@ -81,6 +84,8 @@ public class SnakeModelVisual : Agent
     public void Lose()
     {
         AddReward(deathPenalty);
+        LastReturn = GetCumulativeReward();
+        LastSteps = StepCount;
         EndEpisode();
     }
 
