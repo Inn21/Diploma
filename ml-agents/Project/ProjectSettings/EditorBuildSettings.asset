@@ -8,8 +8,14 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Diploma/Flappy bird/Scenes/FlappyBird Vector Training.unity
     guid: cda780ea414d3774ca1a85757ad80926
-  - enabled: 1
+  - enabled: 0
     path: Assets/Diploma/Flappy bird/Scenes/FlappyBird VO Training.unity
     guid: 85a174776a77baa4da420b418b1acfb9
+  - enabled: 0
+    path: Assets/Diploma/Snake/Scenes/Snake Vector Training.unity
+    guid: 2395db1d477c4664297505992ce73cb8
+  - enabled: 1
+    path: Assets/Diploma/Snake/Scenes/Snake Visual Training.unity
+    guid: aa93acc37f538a340912d6bd683dbc44
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
